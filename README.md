@@ -1,20 +1,18 @@
-# <clipcode/> &mdash; Algorithmic Workspace & Analytics
+# ClipCode &mdash; Algorithmic Workspace & Analytics
 
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
-[![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
 [![Prisma](https://img.shields.io/badge/Prisma-398200?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](./LICENSE)
 
-`clipcode` is a professional, self-contained development notebook and analytics tracker designed to help software engineers structure their Data Structures and Algorithms (DSA) preparation. 
+`ClipCode` is a professional, self-contained development notebook and analytics tracker designed to help software engineers structure their Data Structures and Algorithms (DSA) preparation. 
 
 It enables users to index foundational coding patterns (such as Sliding Window or Two Pointers), associate them with coding exercises on platforms like LeetCode and Codeforces, and catalog language-specific reference implementations.
 
 ---
 
-## 🚀 Why clipcode?
+## 🚀 Why ClipCode?
 
 - **Centralized Reference Notebook**: Keep your study logs, problem trackers, and reference code snippets linked together in a single workspace.
 - **Dynamic Metrics**: The developer dashboard compiles real-time success ratios, difficulty columns, platform origins, and coverage warnings (notifying you of defined patterns that lack code examples).
@@ -94,21 +92,8 @@ The app runs locally on [http://localhost:5173](http://localhost:5173) (launchin
 *(Embed screenshots here!)*
 
 * **Workspace Dashboard**
-  ![Dashboard Screenshot](./screenshots/dashboard.png)
+  ![Dashboard Screenshot](./screenshots/Dashboard.png)
 * **Code Snippets Library**
-  ![Snippets Library](./screenshots/snippets.png)
+  ![Snippets Library](./screenshots/SnippetsList.png)
 
 ---
-
-## 🤝 Community & Support
-
-* **Get Help**: If you run into issues or have questions, please open a thread in the [GitHub Issues](https://github.com/Priyanshu/clipcode/issues) log.
-* **Troubleshooting**: For common cold-start or database issues, audit your credentials or verify network bounds.
-
----
-
-## ✍️ Contribution & License
-
-- **Authors & Maintainers**: Maintained by Priyanshu and open-source contributors.
-- **Contributions**: Contributions are welcome! Please review standard workflow guidelines in [CONTRIBUTING.md](./CONTRIBUTING.md) before opening pull requests.
-- **License**: Distributed under the MIT License. See [LICENSE](./LICENSE) for terms.
