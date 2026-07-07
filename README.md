@@ -1,103 +1,114 @@
-# <clipcode/> — Algorithm & Snippet Tracker
+# <clipcode/> &mdash; Algorithmic Workspace & Analytics
 
-`clipcode` is a professional, self-contained development notebook and dashboard designed to help programmers track LeetCode/Codeforces practice problems, index algorithmic design patterns, and catalog reusable code snippets. 
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-398200?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](./LICENSE)
 
-Built with a unified, custom dark-theme UI, it provides analytics on problem difficulty, platform origins, revisit review tracking, and code language distributions.
+`clipcode` is a professional, self-contained development notebook and analytics tracker designed to help software engineers structure their Data Structures and Algorithms (DSA) preparation. 
+
+It enables users to index foundational coding patterns (such as Sliding Window or Two Pointers), associate them with coding exercises on platforms like LeetCode and Codeforces, and catalog language-specific reference implementations.
+
+---
+
+## 🚀 Why clipcode?
+
+- **Centralized Reference Notebook**: Keep your study logs, problem trackers, and reference code snippets linked together in a single workspace.
+- **Dynamic Metrics**: The developer dashboard compiles real-time success ratios, difficulty columns, platform origins, and coverage warnings (notifying you of defined patterns that lack code examples).
+- **Responsive Layout Design**: Fully adaptive layout. Reflows from a vertical desktop sidebar into a mobile header navbar automatically.
+- **Syntax Highlighting**: Supports C++, Python, Java, and JavaScript preview styling out-of-the-box.
 
 ---
 
 ## 🛠️ Stack & Architecture
 
-### 📂 Directory Structure
+### 📂 Repository Structure
 ```
 clipcode/
-├── frontend/           # React client application (Vite-powered)
+├── frontend/           # React Single Page App (Vite-powered)
 │   ├── src/
 │   │   ├── components/ # Reusable UI (Sidebar, FilterBar, EmptyState, cards)
 │   │   ├── pages/      # List & Detail views (Dashboard, Snippets, Problems, Patterns)
-│   │   └── hooks/      # Local client data fetching wrappers
+│   │   └── hooks/      # useApi data fetching hook
 │   └── package.json
 └── server/             # Express.js REST API
     ├── src/
-    │   ├── controllers/# Business logic execution API controllers
-    │   ├── routes/     # Express route handlers
-    │   └── generated/  # Local Prisma Client output folder
-    ├── prisma/         # Prisma schema and seed scripts
+    │   ├── controllers/# Business logic routes controllers
+    │   └── generated/  # Generated Prisma Client output
+    ├── prisma/         # Prisma Models & Seed scripts
     └── package.json
 ```
 
-### 💻 Technologies
-* **Frontend**: React, Vite, React Router, Axios, Custom Vanilla CSS dark-mode theme, React Syntax Highlighter.
-* **Backend**: Node.js, Express.js.
-* **Database**: PostgreSQL (hosted on Neon.tech), managed by Prisma ORM.
-
 ---
 
-## ⚙️ Local Installation & Setup
+## ⚙️ Getting Started
 
- Follow these instructions to initialize backend and frontend environments:
+Follow these steps to configure your local developer workspace:
 
-### 1. Database Configuration
-1. Navigate to the `server/` directory.
-2. Ensure you have a `.env` file containing your Neon or PostgreSQL database URI:
+### 1. Database Setup
+1. Navigate to the `server/` directory and ensure a `.env` file exists:
    ```env
    DATABASE_URL="postgresql://neondb_owner:YOUR_PASSWORD@YOUR_HOST-pooler.aws.neon.tech/neondb?sslmode=require&connect_timeout=30&pool_timeout=30"
    DIRECT_URL="postgresql://neondb_owner:YOUR_PASSWORD@YOUR_HOST.aws.neon.tech/neondb?sslmode=require"
    PORT=5000
    ```
    > [!NOTE]
-   > The `&connect_timeout=30` and `&pool_timeout=30` parameters are recommended for Neon serverless databases to tolerate cold-start compute node wake-up delays and prevent `P1001` timeout failures.
+   > The `&connect_timeout=30` and `&pool_timeout=30` parameters prevent cold-start `P1001` connection errors when query queries wake serverless database instances like Neon.
 
-### 2. Backend Installation & Migrations
+### 2. Backend Initialization
 From inside the `server/` directory:
 ```bash
-# Install dependencies
+# Install NPM dependencies
 npm install
 
-# Connect and push the Prisma Schema database models
+# Connect and sync database models
 npx prisma db push
 
-# Seed the database with the default dev user and initial patterns/snippets
+# Seed the database with helper schemas and dev user accounts
 node prisma/seed.js
 
-# Start the Express server
+# Launch the API server
 npm start
 ```
-The API server will launch at `http://localhost:5000`.
+The server runs on [http://localhost:5000](http://localhost:5000).
 
-### 3. Frontend Installation & Startup
+### 3. Frontend Initialization
 From inside the `frontend/` directory:
-1. Ensure your API base URL is configured correctly. By default, the frontend is pre-configured to query `http://localhost:5000/api` inside `src/api/client.js`.
-2. Follow these commands:
+1. Confirm API routing: base endpoints are configured to query `http://localhost:5000/api` inside `src/api/client.js` (you can override VITE_API_URL in local environment files).
+2. Execute the following:
    ```bash
-   # Install client-side dependencies
+   # Install UI dependencies
    npm install
 
-   # Start the local Vite development server
+   # Start local dev server
    npm run dev
    ```
-The application will be accessible at `http://localhost:5173` (registering route `/` directly to your new developer dashboard).
+The app runs locally on [http://localhost:5173](http://localhost:5173) (launching the Dashboard directly at `/`).
 
 ---
 
-## 📸 Screenshots & Visuals
-*(Place your dashboard, problems list, and syntax highlighting screenshots here!)*
+## 📸 Screenshots
+*(Embed screenshots here!)*
 
-* **Developer Dashboard**
+* **Workspace Dashboard**
   ![Dashboard Screenshot](./screenshots/dashboard.png)
-* **Algorithmic Patterns List & Problems**
-  ![Patterns List](./screenshots/patterns.png)
+* **Code Snippets Library**
+  ![Snippets Library](./screenshots/snippets.png)
 
 ---
 
-## 🧩 Key Features & Workflows
-* **Dashboard Analytics**: Check success rates, difficulty dot tables, and track patterns displaying missing code coverage guides.
-* **Inline Creation & Deletion**: Add algorithms patterns and link them inline when creating snippets and practice problems.
-* **Responsive Reflows**: Mobile and tablet screen viewports reflow navigation layout automatically into a clean top-header panel.
+## 🤝 Community & Support
+
+* **Get Help**: If you run into issues or have questions, please open a thread in the [GitHub Issues](https://github.com/Priyanshu/clipcode/issues) log.
+* **Troubleshooting**: For common cold-start or database issues, audit your credentials or verify network bounds.
 
 ---
 
-## 🚀 Roadmap & Future TODOs
-- [ ] **TODO**: Audit `useApi` client call sites before demo day to verify error handling bounds.
-- [ ] Implement JWT / Bcrypt Authentication for multi-user catalogs.
-- [ ] Add editable tagging modules.
+## ✍️ Contribution & License
+
+- **Authors & Maintainers**: Maintained by Priyanshu and open-source contributors.
+- **Contributions**: Contributions are welcome! Please review standard workflow guidelines in [CONTRIBUTING.md](./CONTRIBUTING.md) before opening pull requests.
+- **License**: Distributed under the MIT License. See [LICENSE](./LICENSE) for terms.
