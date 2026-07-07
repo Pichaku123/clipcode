@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider     = "prisma-client-js"
+  output       = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL") 
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  patterns     Pattern[]
+  snippets     Snippet[]
+  problems     Problem[]
+}
+
+enum Language {
+  CPP
+  JS
+  PYTHON
+  JAVA
+}
+
+enum Platform {
+  LEETCODE
+  CODEFORCES
+  OTHER
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum ProblemStatus {
+  SOLVED
+  REVISIT
+}
+
+model Pattern {
+  id            String    @id @default(cuid())
+  name          String
+  triggerSignal String
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
+  snippets      Snippet[]
+  problems      Problem[]
+  createdAt     DateTime  @default(now())
+
+  @@unique([userId, name])
+}
+
+model Snippet {
+  id          String    @id @default(cuid())
+  title       String
+  language    Language
+  code        String
+  description String?
+  tags        String[]
+  patternId   String?
+  pattern     Pattern?  @relation(fields: [patternId], references: [id], onDelete: SetNull)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([userId, patternId])
+}
+
+model Problem {
+  id              String        @id @default(cuid())
+  title           String
+  url             String?
+  platform        Platform
+  difficulty      Difficulty?
+  timeComplexity  String?
+  spaceComplexity String?
+  notes           String?
+  status          ProblemStatus @default(SOLVED)
+  tags            String[]
+  patternId       String?
+  pattern         Pattern?      @relation(fields: [patternId], references: [id], onDelete: SetNull)
+  userId          String
+  user            User          @relation(fields: [userId], references: [id])
+  createdAt       DateTime      @default(now())
+
+  @@index([userId, patternId])
+}
