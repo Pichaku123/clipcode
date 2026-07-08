@@ -6,3 +6,5 @@ server/.env
 frontend/.env.local
 frontend/dist/
 server/src/generated/
+README_AUTH_TEMP.md
+PROJECT_AUDIT.md

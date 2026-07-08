@@ -1,6 +1,5 @@
 import prisma from "../prisma.js";
 
-const DEV_USER_ID = "dev-user-1";
 const VALID_PLATFORMS = ["LEETCODE", "CODEFORCES", "OTHER"];
 const VALID_DIFFICULTIES = ["EASY", "MEDIUM", "HARD"];
 const VALID_STATUSES = ["SOLVED", "REVISIT"];
@@ -53,7 +52,7 @@ const createProblem = async (req, res, next) => {
                 status: status || "SOLVED",
                 tags: tags || [],
                 patternId: patternId || null,
-                userId: DEV_USER_ID,
+                userId: req.user.id,
             },
         });
 
@@ -66,7 +65,7 @@ const getProblems = async (req, res, next) => {
     try {
         const { platform, status, patternId, q } = req.query;
 
-        const where = { userId: DEV_USER_ID };
+        const where = { userId: req.user.id };
         if (platform) where.platform = platform;
         if (status) where.status = status;
         if (patternId) where.patternId = patternId;
@@ -92,7 +91,7 @@ const getProblems = async (req, res, next) => {
 const getProblem = async (req, res, next) => {
     try {
         const problem = await prisma.problem.findFirst({
-            where: { id: req.params.id, userId: DEV_USER_ID },
+            where: { id: req.params.id, userId: req.user.id },
             include: { pattern: true },
         });
         if (!problem)
@@ -105,7 +104,7 @@ const getProblem = async (req, res, next) => {
 const updateProblem = async (req, res, next) => {
     try {
         const result = await prisma.problem.updateMany({
-            where: { id: req.params.id, userId: DEV_USER_ID },
+            where: { id: req.params.id, userId: req.user.id },
             data: req.body,
         });
         if (result.count === 0)
@@ -118,7 +117,7 @@ const updateProblem = async (req, res, next) => {
 const deleteProblem = async (req, res, next) => {
     try {
         const result = await prisma.problem.deleteMany({
-            where: { id: req.params.id, userId: DEV_USER_ID },
+            where: { id: req.params.id, userId: req.user.id },
         });
         if (result.count === 0)
             return res.status(404).json({ error: "Problem not found." });

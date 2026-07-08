@@ -1,16 +1,14 @@
 import prisma from "../prisma.js";
 
-const DEV_USER_ID = "dev-user-1";   //remove later when adding auth
-
 //POST- Create new Pattern
 const createPattern = async (req, res, next) => {
     try {
-        const { name, triggerSignal } = req.body;   //get user id from auth mw later
+        const { name, triggerSignal } = req.body;   
         if (!name || !triggerSignal) {
             return res.status(400).json({ error: "name and triggerSignal are required." });
         }
         const pattern = await prisma.pattern.create({
-            data: { name, triggerSignal, userId: DEV_USER_ID },     //replace with req.user.id
+            data: { name, triggerSignal, userId: req.user.id },     
         });
 
         res.status(201).json(pattern);
@@ -23,7 +21,7 @@ const createPattern = async (req, res, next) => {
 const getPatterns = async (req, res, next) => {
     try {
         const patterns = await prisma.pattern.findMany({
-            where: { userId: DEV_USER_ID },
+            where: { userId: req.user.id },
             orderBy: { createdAt: "desc" },     //newest first
         });
 
@@ -37,7 +35,7 @@ const getPatterns = async (req, res, next) => {
 const getPattern = async (req, res, next) => {  
     try {
         const pattern = await prisma.pattern.findFirst({    
-            where: { id: req.params.id, userId: DEV_USER_ID },
+            where: { id: req.params.id, userId: req.user.id },
             include: { snippets: true, problems: true },
         });
         
@@ -53,7 +51,7 @@ const getPattern = async (req, res, next) => {
 const updatePattern = async (req, res, next) => {
     try {
         const result = await prisma.pattern.updateMany({
-            where: { id: req.params.id, userId: DEV_USER_ID },
+            where: { id: req.params.id, userId: req.user.id },
             data: req.body,
         });
         if (result.count === 0)
@@ -67,7 +65,7 @@ const updatePattern = async (req, res, next) => {
 const deletePattern = async (req, res, next) => {
     try {
         const result = await prisma.pattern.deleteMany({
-            where: { id: req.params.id, userId: DEV_USER_ID },
+            where: { id: req.params.id, userId: req.user.id },
         });
         if (result.count === 0)
             return res.status(404).json({ error: "Pattern not found." });
